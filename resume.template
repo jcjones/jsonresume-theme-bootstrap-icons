@@ -92,6 +92,9 @@
 		h2 {
 			font-size: 26px;
 		}
+		body {
+			margin-bottom: 1em;
+		}
 
 		@media print {
 		  a[href]:after {
@@ -197,7 +200,7 @@
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
 				<div class="row printblock">
 					{{#skills}}
-					<div class="col-xs-4 col-md-4 col-lg-5">
+					<div class="col-xs-4 col-md-4 col-lg-6">
 						<h5 class= "skills">{{name}}</h5>
 						{{#keywords}}
 						<span class= "label label-default">{{.}}</span>
@@ -261,9 +264,9 @@
 						<div class="col-xs-4 text-right">
 							<h5>{{status}} {{day}} {{month}} {{year}}</h5>
 							{{#patentNumber}}
-								<p><a href= "{{website}}" target= "_blank">
-										<i class= "fa fa-bookmark ico"></i> {{patentNumber}}
-								</a></p>
+								<p>
+									<i class= "fa fa-lightbulb-o ico"></i> {{patentNumber}}
+								</p>
 							{{/patentNumber}}
 							{{#publisher}}
 								<p>

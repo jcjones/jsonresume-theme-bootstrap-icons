@@ -8,17 +8,45 @@ To first get started with this JSONResume theme, you'll need to have the JSONRes
 
 After this, you can get your resume.json ready by typing `resume init`. After hitting enter, your resume will be initialized and you can edit it and fill in the neccessary fields. Check out [the official resume-schema repository](https://github.com/jsonresume/resume-schema) for more information on filling these fields.
 
-When you are finished with your resume, you may test it by yet again opening the command line and typing `resume serve --theme classy-patents` to see how it looks with this theme. You can replace the word `classy` with other theme names too.
+When you are finished with your resume, you may test it by yet again opening the command line and typing `resume serve --theme bootstrap-icons` to see how it looks with this theme. You can replace the word `bootstrap-icons` with other theme names too.
+### Install the command line
 
-If you want a local copy of your resume, type in `resume export resumeName --theme classy-patents`, and replace `resumeName` with the desired filename. You can export it in pdf and txt using the `--format` flag, like so:
+We're going to use the official [resume-cli](https://github.com/jsonresume/resume-cli) to run our development server.
+
+Go ahead and install it:
 
 ```
-resume export resume --format pdf --theme classy-patents
+sudo npm install -g resume-cli
 ```
 
-However, if you wish to export it to the JSONResume Registry, use the command `resume publish` instead.
+### Install npm packages
 
-More details about the CLI and it's commands are available [here](https://github.com/jsonresume/resume-cli).
+We need to install the dependencies. `cd` into the theme folder we just downloaded and run:
+
+```bash
+sudo npm install
+```
+
+This will read the local `package.json` and install the packages listed under `dependencies`.
+
+### Serve theme
+
+While inside the theme folder, simply run:
+
+```
+resume serve
+```
+
+You should now see this message:
+
+```
+Preview: http://localhost:4000
+Press ctrl-c to stop
+```
+
+Congratulations, you've made it!
+
+__The theme development can now begin.__
 
 ## Tips
 
@@ -36,7 +64,7 @@ The publications section understands patents a little better now.
  ]
 ```
 
-As of now, the "Classy" theme supports the following profiles in the bio.profiles array:
+As of now, the "Classy" theme supports the following profiles in the bio.profiles array.
 
 * Facebook
 * Twitter
@@ -59,5 +87,7 @@ Every section is optional also. If per se, you do not include the publications a
 If you find any other problems with this theme in specified, do feel free to leave an issue. Thanks.
 
 ## Colophon
+
+Thanks to [Jared Cubilla](https://github.com/JaredCubilla) for the basis of this theme.
 
 Thanks to the wonderful [Font Awesome](https://fontawesome.io) for their free-to-use icon font, and a big thank you to the JSONResume theme for their wonderful idea and helping me with a few issues on my part.

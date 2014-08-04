@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{bio.firstName}} {{bio.lastName}}</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http:///www.pugsplace.net/unifex/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">   
+<!--     <link href="http://localhost/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/font-awesome.min.css" rel="stylesheet"> -->
     <style>
 		#contactHeader {
 			font-size:1em;
@@ -173,7 +176,7 @@
 						<h4>
 							{{startDateMonth}}{{startDateYear}} – {{endDateMonth}}{{endDateYear}}
 							<small class="pull-right"><a href="{{website}}" target= "_blank"><i class= "
-	glyphicon glyphicon-globe"></i>{{website}}</a></small>
+	fa fa-globe ico"></i> {{website}}</a></small>
 						</h4>
 						
 						<p>{{summary}}</p>
@@ -191,22 +194,27 @@
 		</div>
 		{{/workBool}}
 		{{#skillsBool}}
-		<div id= "skills" class="row">
-			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-tasks ico"></i> SKILLS</h2>
+		<div id="skills" class="printblock">
+			<div class="row">
+				<div class="col-xs-12 col-md-10 col-md-offset-1">
+					<h2><i class= "fa fa-tasks ico"></i> SKILLS</h2>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<div class="row printblock">
-					{{#skills}}
-					<div class="col-xs-4 col-md-4 col-lg-6">
-						<h5 class= "skills">{{name}}</h5>
-						{{#keywords}}
-						<span class= "label label-default">{{.}}</span>
-						{{/keywords}}
+			<div class="row">
+				<div class="col-xs-12 col-md-10 col-md-offset-1">
+					<div class="row">
+						{{#skills}}
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+							<h5 class= "skills">
+								{{name}} 
+								<!-- <small>{{level}}</small> -->
+							</h5>
+							{{#keywords}}
+							<span class= "label label-default">{{.}}</span>
+							{{/keywords}}
+						</div>
+						{{/skills}}
 					</div>
-					{{/skills}}
 				</div>
 			</div>
 		</div>
@@ -255,7 +263,15 @@
 				{{#publications}}
 					<div class="row printblock">
 						<div class="col-xs-8">
-							<h4>{{name}}</h4>
+							<h4>
+							{{#patentNumber}}
+								<small>Patent:</small>
+							{{/patentNumber}}
+							{{#publisher}}
+								<small>Article:</small>
+							{{/publisher}}	
+								{{name}}
+							</h4>
 							<p class="summary">{{summary}}</p>
 							<footer>
 								<a href= "{{website}}" target= "_blank">{{website}}</a>

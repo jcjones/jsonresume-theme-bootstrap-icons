@@ -1,12 +1,9 @@
 var fs = require('fs');
 var _ = require('lodash')
 var Mustache = require('mustache');
-var schema = require('resume-schema');
 
 var d = new Date();
 var curyear = d.getFullYear();
-
-var resumeObject = schema.resumeJson; 
 
 function render(resumeObject) {
 

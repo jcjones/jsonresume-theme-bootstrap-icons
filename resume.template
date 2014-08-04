@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{bio.firstName}} {{bio.lastName}}</title>
-    <link href="http:///www.pugsplace.net/unifex/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <title>{{basics.name}}</title>
+   
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">   
 <!--     <link href="http://localhost/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost/font-awesome.min.css" rel="stylesheet"> -->
@@ -118,54 +118,46 @@
   </head>
   <body>
 	<div class= "container-fluid">
-		<div class="row">
+		<div class="row">			
 			<div class="col-xs-12 text-center">
-					<h1>{{bio.capitalName}}</h1>
+					<h1>
+						{{basics.capitalName}}<br/>
+						<small>{{basics.label}}</small>
+					</h1>
 			</div>
-		</div>
+		</div>		
 		<div class="row" id="contactHeader">
 			<div id= "contact" class="col-xs-6 text-right">
 				<address>
-					<strong>{{bio.location.city}}</strong>, {{bio.location.state}} <i class="fa fa-map-marker"></i><br/>
-					{{#phoneBool}}
-						{{bio.phone.phone}} <i class="fa fa-phone"></i><br/>
-					{{/phoneBool}}
-		  			{{#emailBool}}
-				  		<a href= "mailto:{{bio.email.email}}" target= "_blanks">{{bio.email.email}}</a> <i class="fa fa-envelope-o"></i>
+					<strong>{{basics.location.city}}</strong>, {{basics.location.region}} <i class="fa fa-map-marker"></i><br/>
+					{{#basics.phone}}
+						{{basics.phone}} <i class="fa fa-phone"></i><br/>
+					{{/basics.phone}}
+		  			{{#basics.email}}
+				  		<a href= "mailto:{{basics.email}}" target= "_blanks">{{basics.email}}</a> <i class="fa fa-envelope-o"></i><br/>
+					{{/basics.email}}
+					{{#basics.website}}
+				  		<a href= "{{basics.website}}" target= "_blanks">{{basics.website}}</a> <i class="fa fa-globe"></i><br/>
+					{{/basics.website}}					
 					</address>
-				{{/emailBool}}				
 			</div>
 			<div id= "profiles" class="col-xs-6">
-				{{#facebookBool}}<a href="https://www.facebook.com/{{bio.profiles.facebook}}" target= "_blank"><i class= "fa fa-facebook-square"></i></a><br/>{{/facebookBool}}
-				{{#twitterBool}}<a href="https://www.twitter.com/{{bio.profiles.twitter}}" target= "_blank"><i class= "fa fa-twitter-square"></i>https://www.twitter.com/{{bio.profiles.twitter}}</a><br/>{{/twitterBool}}
-				{{#googleplusBool}}<a href="https://plus.google.com/{{bio.profiles.googleplus}}" target= "_blank"><i class= "fa fa-google-plus-square"></i></a><br/>{{/googleplusBool}}
-				{{#youtubeBool}}<a href="https://www.youtube.com/user/{{bio.profiles.youtube}}" target= "_blank"><i class= "fa fa-youtube-square"></i></a><br/>{{/youtubeBool}}
-				{{#vimeoBool}}<a href="http://vimeo.com/{{bio.profiles.vimeo}}" target= "_blank"><i class= "fa fa-vimeo-square"></i></a><br/>{{/vimeoBool}}
-				{{#githubBool}}<a href="https://www.github.com/{{bio.profiles.github}}" target= "_blank"><i class= "fa fa-github-square"></i>https://www.github.com/{{bio.profiles.github}}</a><br/>{{/githubBool}}
-				{{#linkedinBool}}<a href= "https://www.linkedin.com/in/{{bio.profiles.linkedin}}" target= "_blank"><i class= "fa fa-linkedin-square"></i>https://www.linkedin.com/in/{{bio.profiles.linkedin}}</a><br/>{{/linkedinBool}}
-				{{#pinterestBool}}<a href= "https://www.pinterest.com/{{bio.profiles.pinterest}}" target= "_blank"><i class= "fa fa-pinterest-square"></i></a><br/>{{/pinterestBool}}
-				{{#flickrBool}}<a href= "https://www.flickr.com/photos/{{bio.profiles.flickr}}/" target= "_blank"><i class= "fa fa-flickr"></i></a><br/>{{/flickrBool}}
-				{{#behanceBool}}<a href= "https://www.behance.net/{{bio.profiles.behance}}" target= "_blank"><i class= "fa fa-behance-square"></i></a><br/>{{/behanceBool}}
-				{{#codepenBool}}
-				<a href= "http://codepen.io/{{bio.profiles.codepen}}" target= "_blank">
-				<span class="fa-stack">
-	  				<i class="fa fa-square fa-stack-2x"></i><i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
-				</span>
-				</a>
-				{{/codepenBool}}
-				{{#blogBool}}<a href="{{bio.websites.blog}}" target= "_blank"><i class= "fa fa-rss-square"></i></a><br/>{{/blogBool}}
+				{{#basics.profiles}}
+				<a href="{{url}}" target="_blank"><i class="{{iconClass}}"></i> {{text}}</a><br/>
+				{{/basics.profiles}}
 			</div>		
 		</div>
-		{{#aboutBool}}
+
+		{{#basics.summary}}
 		<div id="about" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
 				<h2><i class= "fa fa-user ico"></i> ABOUT</h2>
 				<p>
-					{{bio.summary}}
+					{{basics.summary}}
 				</p>
 			</div>
 		</div>
-		{{/aboutBool}}
+		{{/basics.summary}}
 		{{#workBool}}
 		<div id= "work" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
@@ -180,19 +172,46 @@
 						</h4>
 						
 						<p>{{summary}}</p>
-						{{#workHighlights}}
+						{{#boolHighlights}}
 						<h4>HIGHLIGHTS</h4>
 						<ul>
 							{{#highlights}}
 							<li>{{.}}</li>
 							{{/highlights}}
 						</ul>
-						{{/workHighlights}}
+						{{/boolHighlights}}
 					</div>
 				{{/work}}
 			</div>
 		</div>
 		{{/workBool}}
+		{{#volunteerBool}}
+		<div id="volunteer" class="row">
+			<div class="col-xs-12 col-md-10 col-md-offset-1">
+				<h2><i class= "fa fa-star ico"></i> VOLUNTEER EXPERIENCE</h2>
+				{{#volunteer}}
+					<div class= "job printblock">
+						<h3>{{position}}, {{organization}}</h3>
+						<h4>
+							{{startDateMonth}}{{startDateYear}} – {{endDateMonth}}{{endDateYear}}
+							<small class="pull-right"><a href="{{website}}" target= "_blank"><i class= "
+	fa fa-globe ico"></i> {{website}}</a></small>
+						</h4>
+						
+						<p>{{summary}}</p>
+						{{#boolHighlights}}
+						<h4>HIGHLIGHTS</h4>
+						<ul>
+							{{#highlights}}
+							<li>{{.}}</li>
+							{{/highlights}}
+						</ul>
+						{{/boolHighlights}}
+					</div>
+				{{/volunteer}}
+			</div>
+		</div>
+		{{/volunteerBool}}
 		{{#skillsBool}}
 		<div id="skills" class="printblock">
 			<div class="row">

@@ -1,4 +1,4 @@
-#jsonresume-theme-classy-patents
+#jsonresume-theme-bootstrap-icons
 
 A fork of the [uber-classy](https://github.com/JaredCubilla/jsonresume-theme-classy) theme for JSONResume, to rework it into Bootstrap and add some personal flair, particularly around patent-type publications.
 
@@ -50,7 +50,13 @@ __The theme development can now begin.__
 
 ## Tips
 
-The publications section understands patents a little better now.
+The publications section understands patents a little better now. Added to the official specification are:
+
+Parameter       | Required? | Type   | Description
+----------------|-----------|--------|--------------
+ `patentNumber` | optional  | string | Patent number, to be formatted
+ `patentStatus` | optional  | string | Issued or Pending
+
 ```json
  "publications": [
     {

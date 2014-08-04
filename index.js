@@ -5,193 +5,141 @@ var Mustache = require('mustache');
 var d = new Date();
 var curyear = d.getFullYear();
 
+function getMonth(startDateStr) {
+	switch (startDateStr.substr(5,2)) {
+	case '01':
+		return "January ";
+	case '02':
+		return "February ";
+	case '03':
+		return "March ";
+	case '04':
+		return "April ";
+	case '05':
+		return "May ";
+	case '06':
+		return "June ";
+	case '07':
+		return "July ";
+	case '08':
+		return "August ";
+	case '09':
+		return "September ";
+	case '10': 
+		return "October ";
+	case '11':
+		return "November ";
+	case '12':
+		return "December ";
+	}
+}
+
 function render(resumeObject) {
 
-resumeObject.bio.capitalName = (resumeObject.bio.firstName + ' ' + resumeObject.bio.lastName).toUpperCase();
+	resumeObject.basics.capitalName = resumeObject.basics.name.toUpperCase();
 
-	if (resumeObject.bio.email) {
-		if (resumeObject.bio.email.personal || resumeObject.bio.email.work) {
-			resumeObject.emailBool = true;
-			if (resumeObject.bio.email.personal) {
-				resumeObject.bio.email.email = resumeObject.bio.email.personal;
-			} else if (resumeObject.bio.email.work) {
-				resumeObject.bio.email.email = resumeObject.bio.email.work;
-			}
-		}
-	}
-
-	if (resumeObject.bio.phone) {
-		if (resumeObject.bio.phone.personal || resumeObject.bio.phone.work) {
-			resumeObject.phoneBool = true;
-			if (resumeObject.bio.phone.personal) {
-				resumeObject.bio.phone.phone = resumeObject.bio.phone.personal;
-			} else if (resumeObject.bio.phone.work) {
-				resumeObject.bio.phone.phone = resumeObject.bio.phone.work;
-			}
-		}
-	}
-
-	if (resumeObject.bio.profiles) {
-		if (resumeObject.bio.profiles.facebook) {
-			resumeObject.facebookBool = true;
-		}
-
-		if (resumeObject.bio.profiles.twitter) {
-			resumeObject.twitterBool = true;
-		}
-
-		if (resumeObject.bio.profiles.googleplus) {
-			resumeObject.googleplusBool = true;
-		}
-
-		if (resumeObject.bio.profiles.googlePlus) {
-			resumeObject.bio.profiles.googleplus = resumeObject.bio.profiles.googlePlus;
-			resumeObject.googleplusBool = true;
-		}
-
-		if (resumeObject.bio.profiles.youtube) {
-			resumeObject.youtubeBool = true;
-		}
-
-		if (resumeObject.bio.profiles.behance) {
-			resumeObject.behanceBool = true;
-		}
-
-		if (resumeObject.bio.profiles.vimeo) {
-			resumeObject.vimeoBool = true;
+	_.each(resumeObject.basics.profiles, function(p){
+		switch(p.network.toLowerCase()) {
+			case "facebook":
+				p.iconClass = "fa fa-facebook-square";
+				break;
+			case "github":
+				p.iconClass = "fa fa-github-square";
+				break;
+			case "twitter":
+				p.iconClass = "fa fa-twitter-square";
+				break;
+			case "googleplus":
+				p.iconClass = "fa fa-google-plus-square";
+				break;
+			case "youtube":
+				p.iconClass = "fa fa-youtube-square";
+				break;
+			case "vimeo":
+				p.iconClass = "fa fa-vimeo-square";
+				break;
+			case "linkedin":
+				p.iconClass = "fa fa-linkedin-square";
+				break;
+			case "pinterest":
+				p.iconClass = "fa fa-pinterest-square";
+				break;
+			case "flickr":
+				p.iconClass = "fa fa-flickr";
+				break;
+			case "behance":
+				p.iconClass = "fa fa-behance-square";
+				break;
+			case "codepen":
+				p.iconClass = "fa fa-codepen-square";
+				break;
+			case "soundcloud":
+				p.iconClass = "fa fa-soundcloud";
+				break;
+			case "steam":
+				p.iconClass = "fa fa-steam";
+				break;
+			case "reddit":
+				p.iconClass = "fa fa-reddit";
+				break;
+			case "blog":
+				p.iconClass = "fa fa-rss-square";
+				break;
 		}
 
-		if (resumeObject.bio.profiles.linkedin) {
-			resumeObject.linkedinBool = true;
+		if (p.url) {
+			p.text = p.url;
+		} else {
+			p.text = p.network + ": " + p.username;
 		}
-
-		if (resumeObject.bio.profiles.pinterest) {
-			resumeObject.pinterestBool = true;
-		}
-
-		if (resumeObject.bio.profiles.codepen) {
-			resumeObject.codepenBool = true;
-		}
-
-		if (resumeObject.bio.profiles.github) {
-			resumeObject.githubBool = true;
-		}
-		if (resumeObject.bio.profiles.flickr) {
-			resumeObject.flickrBool = true;
-		}
-		if (resumeObject.bio.profiles.flicker) {
-			resumeObject.bio.profiles.flickr = resumeObject.bio.profiles.flicker;
-			resumeObject.flickrBool = true;
-		}
-	}
-
-	if (resumeObject.bio.websites) {
-		if (resumeObject.bio.websites.blog) {
-			resumeObject.blogBool = true;
-		}
-	}
-
-	if (resumeObject.bio.summary) {
-		resumeObject.aboutBool = true;
-	}
+	});
 
 	if (resumeObject.work) {
-		if (resumeObject.work[0].company) {
-			resumeObject.workBool = true;
-			_.each(resumeObject.work, function(w){
-				if (w.startDate) {
-					w.startDateYear = (w.startDate || "").substr(0,4);
-					switch (w.startDate.substr(5,2)) {
-						case '01':
-							w.startDateMonth = "January ";
-							break;
-						case '02':
-							w.startDateMonth = "February ";
-							break;
-						case '03':
-							w.startDateMonth = "March ";
-							break;
-						case '04':
-							w.startDateMonth = "April ";
-							break;
-						case '05':
-							w.startDateMonth = "May ";
-							break;
-						case '06':
-							w.startDateMonth = "June ";
-							break;
-						case '07':
-							w.startDateMonth = "July ";
-							break;
-						case '08':
-							w.startDateMonth = "August ";
-							break;
-						case '09':
-							w.startDateMonth = "September ";
-							break;
-						case '10': 
-							w.startDateMonth = "October ";
-							break;
-						case '11':
-							w.startDateMonth = "November ";
-							break;
-						case '12':
-							w.startDateMonth = "December ";
-							break;
-						}
-				}
-				if(w.endDate) {
-					w.endDateYear = (w.endDate || "").substr(0,4);
-					switch ((w.endDate || "").substr(5,2)) {
-						case '01':
-							w.endDateMonth = "January ";
-							break;
-						case '02':
-							w.endDateMonth = "February ";
-							break;
-						case '03':
-							w.endDateMonth = "March ";
-							break;
-						case '04':
-							w.endDateMonth = "April ";
-							break;
-						case '05':
-							w.endDateMonth = "May ";
-							break;
-						case '06':
-							w.endDateMonth = "June ";
-							break;
-						case '07':
-							w.endDateMonth = "July ";
-							break;
-						case '08':
-							w.endDateMonth = "August ";
-							break;
-						case '09':
-							w.endDateMonth = "September ";
-							break;
-						case '10': 
-							w.endDateMonth = "October ";
-							break;
-						case '11':
-							w.endDateMonth = "November ";
-							break;
-						case '12':
-							w.endDateMonth = "December ";
-							break;
-						}
-				} else { 
-					w.endDateYear = 'Present'
-				}
-				if (w.highlights) {
-					if (w.highlights[0]) {
-						if (w.highlights[0] != "") {
-							w.workHighlights = true;
-						}
+		resumeObject.workBool = true;
+		_.each(resumeObject.work, function(w){
+			if (w.startDate) {
+				w.startDateYear = (w.startDate || "").substr(0,4);
+				w.startDateMonth = getMonth(w.startDate || "");
+				
+			}
+			if(w.endDate) {
+				w.endDateYear = (w.endDate || "").substr(0,4);
+				w.endDateMonth = getMonth(w.endDate || "");
+			} else { 
+				w.endDateYear = 'Present'
+			}
+			if (w.highlights) {
+				if (w.highlights[0]) {
+					if (w.highlights[0] != "") {
+						w.boolHighlights = true;
 					}
 				}
-			});
-		}
+			}
+		});
+	}
+
+	if (resumeObject.volunteer) {
+		resumeObject.volunteerBool = true;
+		_.each(resumeObject.volunteer, function(w){
+			if (w.startDate) {
+				w.startDateYear = (w.startDate || "").substr(0,4);
+				w.startDateMonth = getMonth(w.startDate || "");
+				
+			}
+			if(w.endDate) {
+				w.endDateYear = (w.endDate || "").substr(0,4);
+				w.endDateMonth = getMonth(w.endDate || "");
+			} else { 
+				w.endDateYear = 'Present'
+			}
+			if (w.highlights) {
+				if (w.highlights[0]) {
+					if (w.highlights[0] != "") {
+						w.boolHighlights = true;
+					}
+				}
+			}
+		});
 	}
 
 	if (resumeObject.education) {
@@ -205,87 +153,14 @@ resumeObject.bio.capitalName = (resumeObject.bio.firstName + ' ' + resumeObject.
 			    }
 				if (e.startDate) {
 					e.startDateYear = e.startDate.substr(0,4);
-					switch (e.startDate.substr(5,2)) {
-						case '01':
-							e.startDateMonth = "January ";
-							break;
-						case '02':
-							e.startDateMonth = "February ";
-							break;
-						case '03':
-							e.startDateMonth = "March ";
-							break;
-						case '04':
-							e.startDateMonth = "April ";
-							break;
-						case '05':
-							e.startDateMonth = "May ";
-							break;
-						case '06':
-							e.startDateMonth = "June ";
-							break;
-						case '07':
-							e.startDateMonth = "July ";
-							break;
-						case '08':
-							e.startDateMonth = "August ";
-							break;
-						case '09':
-							e.startDateMonth = "September ";
-							break;
-						case '10': 
-							e.startDateMonth = "October ";
-							break;
-						case '11':
-							e.startDateMonth = "November ";
-							break;
-						case '12':
-							e.startDateMonth = "December ";
-							break;
-					}
+					e.startDateMonth = getMonth(e.startDate || "");
 				} else {
 					e.endDateMonth = "";
 				}
 				if (e.endDate) {
 					e.endDateYear = e.endDate.substr(0,4);
-					switch (e.endDate.substr(5,2)) {
-						case '01':
-							e.endDateMonth = "January ";
-							break;
-						case '02':
-							e.endDateMonth = "February ";
-							break;
-						case '03':
-							e.endDateMonth = "March ";
-							break;
-						case '04':
-							e.endDateMonth = "April ";
-							break;
-						case '05':
-							e.endDateMonth = "May ";
-							break;
-						case '06':
-							e.endDateMonth = "June ";
-							break;
-						case '07':
-							e.endDateMonth = "July ";
-							break;
-						case '08':
-							e.endDateMonth = "August ";
-							break;
-						case '09':
-							e.endDateMonth = "September ";
-							break;
-						case '10': 
-							e.endDateMonth = "October ";
-							break;
-						case '11':
-							e.endDateMonth = "November ";
-							break;
-						case '12':
-							e.endDateMonth = "December ";
-							break;
-					}
+					e.endDateMonth = getMonth(e.endDate || "")
+				
 					if (e.endDateYear > curyear) {
 						e.endDateYear += " (expected)";
 					}
@@ -310,44 +185,7 @@ resumeObject.bio.capitalName = (resumeObject.bio.firstName + ' ' + resumeObject.
 			_.each(resumeObject.awards, function(a){
 				a.year = (a.date || "").substr(0,4);
 				a.day = (a.date || "").substr(8,2);
-				switch ((a.date || "").substr(5,2)) {
-					case '01':
-						a.month = "January";
-						break;
-					case '02':
-						a.month = "February";
-						break;
-					case '03':
-						a.month = "March";
-						break;
-					case '04':
-						a.month = "April";
-						break;
-					case '05':
-						a.month = "May";
-						break;
-					case '06':
-						a.month = "June";
-						break;
-					case '07':
-						a.month = "July";
-						break;
-					case '08':
-						a.month = "August";
-						break;
-					case '09':
-						a.month = "September";
-						break;
-					case '10': 
-						a.month = "October";
-						break;
-					case '11':
-						a.month = "November";
-						break;
-					case '12':
-						a.month = "December";
-						break;
-				}
+				a.month = getMonth(a.date || "");
 			});
 		}
 	}
@@ -358,44 +196,7 @@ resumeObject.bio.capitalName = (resumeObject.bio.firstName + ' ' + resumeObject.
 			_.each(resumeObject.publications, function(a){
 				a.year = (a.releaseDate || "").substr(0,4);
 				a.day = (a.releaseDate || "").substr(8,2);
-				switch ((a.releaseDate || "").substr(5,2)) {
-					case '01':
-						a.month = "January";
-						break;
-					case '02':
-						a.month = "February";
-						break;
-					case '03':
-						a.month = "March";
-						break;
-					case '04':
-						a.month = "April";
-						break;
-					case '05':
-						a.month = "May";
-						break;
-					case '06':
-						a.month = "June";
-						break;
-					case '07':
-						a.month = "July";
-						break;
-					case '08':
-						a.month = "August";
-						break;
-					case '09':
-						a.month = "September";
-						break;
-					case '10': 
-						a.month = "October";
-						break;
-					case '11':
-						a.month = "November";
-						break;
-					case '12':
-						a.month = "December";
-						break;
-				}
+				a.month = getMonth(a.releaseDate || "");
 			});
 		}
 	}

@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{bio.firstName}} {{bio.lastName}}</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">   
+    <title>{{basics.name}}</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">   
     <style>
 		#contactHeader {
 			font-size:1em;
@@ -39,6 +39,12 @@
 		}
 		.fa-pinterest-square {
 			color: #cb2027;
+		}
+		.fa-envelope-square {
+			color: #1ab7ea;
+		}
+		.fa-pencil-square {
+			color: #cb2027;	
 		}
 		.fa-codepen {
 			font-size: 1em;
@@ -95,6 +101,10 @@
 		body {
 			margin-bottom: 1em;
 		}
+		.skilllabel {
+			color: #000;
+			background-color: #CCC;
+		}
 
 		@media print {
 		  a[href]:after {
@@ -114,86 +124,74 @@
     </style>
   </head>
   <body>
-	<div class= "container-fluid">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12 text-center">
-					<h1>{{bio.capitalName}}</h1>
+					<h1 class="text-uppercase">{{basics.name}}</h1>
 			</div>
 		</div>
 		<div class="row" id="contactHeader">
-			<div id= "contact" class="col-xs-6 text-right">
+			<div id="contact" class="col-xs-6 text-right">
 				<address>
-					<strong>{{bio.location.city}}</strong>, {{bio.location.state}} <i class="fa fa-map-marker"></i><br/>
-					{{#phoneBool}}
-						{{bio.phone.phone}} <i class="fa fa-phone"></i><br/>
-					{{/phoneBool}}
-		  			{{#emailBool}}
-				  		<a href= "mailto:{{bio.email.email}}" target= "_blanks">{{bio.email.email}}</a> <i class="fa fa-envelope-o"></i>
-					</address>
-				{{/emailBool}}				
+					<strong>{{basics.location.city}}</strong>, {{basics.location.state}} <i class="fa fa-map-marker"></i><br/>
+					{{#basics.phone}}
+						{{basics.phone}} <i class="fa fa-phone"></i><br/>
+					{{/basics.phone}}
+	  			{{#basics.email}}
+				  		<a href= "mailto:{{basics.email}}" target= "_blanks">{{basics.email}}</a> <i class="fa fa-envelope-square"></i><br/>
+		  		{{/basics.email}}
+					{{#basics.website}}
+						<a href="{{basics.website}}" target="_blank">{{basics.website}}</a> <i class="fa fa-pencil-square"></i></br>
+					{{/basics.website}}		  		
+				</address>
 			</div>
-			<div id= "profiles" class="col-xs-6">
-				{{#facebookBool}}<a href="https://www.facebook.com/{{bio.profiles.facebook}}" target= "_blank"><i class= "fa fa-facebook-square"></i></a><br/>{{/facebookBool}}
-				{{#twitterBool}}<a href="https://www.twitter.com/{{bio.profiles.twitter}}" target= "_blank"><i class= "fa fa-twitter-square"></i>https://www.twitter.com/{{bio.profiles.twitter}}</a><br/>{{/twitterBool}}
-				{{#googleplusBool}}<a href="https://plus.google.com/{{bio.profiles.googleplus}}" target= "_blank"><i class= "fa fa-google-plus-square"></i></a><br/>{{/googleplusBool}}
-				{{#youtubeBool}}<a href="https://www.youtube.com/user/{{bio.profiles.youtube}}" target= "_blank"><i class= "fa fa-youtube-square"></i></a><br/>{{/youtubeBool}}
-				{{#vimeoBool}}<a href="http://vimeo.com/{{bio.profiles.vimeo}}" target= "_blank"><i class= "fa fa-vimeo-square"></i></a><br/>{{/vimeoBool}}
-				{{#githubBool}}<a href="https://www.github.com/{{bio.profiles.github}}" target= "_blank"><i class= "fa fa-github-square"></i>https://www.github.com/{{bio.profiles.github}}</a><br/>{{/githubBool}}
-				{{#linkedinBool}}<a href= "https://www.linkedin.com/in/{{bio.profiles.linkedin}}" target= "_blank"><i class= "fa fa-linkedin-square"></i>https://www.linkedin.com/in/{{bio.profiles.linkedin}}</a><br/>{{/linkedinBool}}
-				{{#pinterestBool}}<a href= "https://www.pinterest.com/{{bio.profiles.pinterest}}" target= "_blank"><i class= "fa fa-pinterest-square"></i></a><br/>{{/pinterestBool}}
-				{{#flickrBool}}<a href= "https://www.flickr.com/photos/{{bio.profiles.flickr}}/" target= "_blank"><i class= "fa fa-flickr"></i></a><br/>{{/flickrBool}}
-				{{#behanceBool}}<a href= "https://www.behance.net/{{bio.profiles.behance}}" target= "_blank"><i class= "fa fa-behance-square"></i></a><br/>{{/behanceBool}}
-				{{#codepenBool}}
-				<a href= "http://codepen.io/{{bio.profiles.codepen}}" target= "_blank">
-				<span class="fa-stack">
-	  				<i class="fa fa-square fa-stack-2x"></i><i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
-				</span>
-				</a>
-				{{/codepenBool}}
-				{{#blogBool}}<a href="{{bio.websites.blog}}" target= "_blank"><i class= "fa fa-rss-square"></i></a><br/>{{/blogBool}}
-			</div>		
+			<div id="profiles" class="col-xs-6">
+				{{#basics.profiles}}
+				<a href="{{url}}" target="_blank"><i class="fa {{icon}}"></i>{{url}}</a></br>
+				{{/basics.profiles}}
+			</div>
 		</div>
-		{{#aboutBool}}
+		{{#basics.summary}}
 		<div id="about" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-user ico"></i> ABOUT</h2>
+				<h2><i class="fa fa-user ico"></i> ABOUT</h2>
 				<p>
-					{{bio.summary}}
+					{{basics.summary}}
 				</p>
 			</div>
 		</div>
-		{{/aboutBool}}
-		{{#workBool}}
-		<div id= "work" class="row">
+		{{/basics.summary}}
+		{{#work.length}}
+		<div id="work" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-suitcase ico"></i> WORK EXPERIENCE</h2>
+				<h2><i class="fa fa-suitcase ico"></i> WORK EXPERIENCE</h2>
 				{{#work}}
-					<div class= "job printblock">
+					<div class="job printblock">
 						<h3>{{position}}, {{company}}</h3>
 						<h4>
 							{{startDateMonth}}{{startDateYear}} – {{endDateMonth}}{{endDateYear}}
-							<small class="pull-right"><a href="{{website}}" target= "_blank"><i class= "
+							<small class="pull-right"><a href="{{website}}" target= "_blank"><i class="
 	glyphicon glyphicon-globe"></i>{{website}}</a></small>
 						</h4>
 						
 						<p>{{summary}}</p>
-						{{#workHighlights}}
+						{{#highlights.length}}
 						<h4>HIGHLIGHTS</h4>
 						<ul>
 							{{#highlights}}
 							<li>{{.}}</li>
 							{{/highlights}}
 						</ul>
-						{{/workHighlights}}
+						{{/highlights.length}}
 					</div>
 				{{/work}}
 			</div>
 		</div>
-		{{/workBool}}
-		{{#skillsBool}}
-		<div id= "skills" class="row">
+		{{/work.length}}
+		{{#skills.length}}
+		<div id="skills" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-tasks ico"></i> SKILLS</h2>
+				<h2><i class="fa fa-tasks ico"></i> SKILLS</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -201,27 +199,27 @@
 				<div class="row printblock">
 					{{#skills}}
 					<div class="col-xs-4 col-md-4 col-lg-6">
-						<h5 class= "skills">{{name}}</h5>
+						<h5 class="skills">{{name}}</h5>
 						{{#keywords}}
-						<span class= "label label-default">{{.}}</span>
+						<span class="label skilllabel">{{.}}</span>
 						{{/keywords}}
 					</div>
 					{{/skills}}
 				</div>
 			</div>
 		</div>
-		{{/skillsBool}}
-		{{#educationBool}}
-		<div id= "education" class="row printblock">
+		{{/skills.length}}
+		{{#education.length}}
+		<div id="education" class="row printblock">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-university ico"></i> EDUCATION</h2>
+				<h2><i class="fa fa-university ico"></i> EDUCATION</h2>
 				{{#education}}
 				<div>
 					<h4>
 						{{studyType}} 
 						{{#area}}<small>in {{area}}</small>{{/area}}
 					</h4>
-					<p class="pull-right"><i class= "fa fa-graduation-cap ico"></i> {{institution}}</p>
+					<p class="pull-right"><i class="fa fa-graduation-cap ico"></i> {{institution}}</p>
 					<h5>{{startDateMonth}}{{startDateYear}} – {{endDateMonth}}{{endDateYear}}</h5>
 					
 						{{#educationCourses}}
@@ -236,22 +234,22 @@
 				{{/education}}
 			</div>
 		</div>
-		{{/educationBool}}
-		{{#awardsBool}}
-		<div id= "awards" class="row">
+		{{/education.length}}
+		{{#awards.length}}
+		<div id="awards" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-trophy ico"></i> AWARDS</h2>
+				<h2><i class="fa fa-trophy ico"></i> AWARDS</h2>
 				{{#awards}}
 					<h3>{{title}}</h3>
 					<h4>{{day}} {{month}} {{year}} – {{awarder}}</h4>
 				{{/awards}}
 			</div>
 		</div>
-		{{/awardsBool}}
-		{{#publicationsBool}}
-		<div id= "publications" class="row">
+		{{/awards.length}}
+		{{#publications.length}}
+		<div id="publications" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-book ico"></i> PUBLICATIONS / PATENTS</h2>
+				<h2><i class="fa fa-book ico"></i> PUBLICATIONS / PATENTS</h2>
 				{{#publications}}
 					<div class="row printblock">
 						<div class="col-xs-8">
@@ -265,12 +263,12 @@
 							<h5>{{status}} {{day}} {{month}} {{year}}</h5>
 							{{#patentNumber}}
 								<p>
-									<i class= "fa fa-lightbulb-o ico"></i> {{patentNumber}}
+									<i class="fa fa-lightbulb-o ico"></i> {{patentNumber}}
 								</p>
 							{{/patentNumber}}
 							{{#publisher}}
 								<p>
-									<i class= "fa fa-bookmark ico"></i> {{publisher}}
+									<i class="fa fa-bookmark ico"></i> {{publisher}}
 								</p>
 							{{/publisher}}
 						</div>								
@@ -278,11 +276,11 @@
 				{{/publications}}
 			</div>
 		</div>
-		{{/publicationsBool}}
-		{{#referencesBool}}
-		<div id= "references" class="row">
+		{{/publications.length}}
+		{{#references.length}}
+		<div id="references" class="row">
 			<div class="col-xs-12 col-md-10 col-md-offset-1">
-				<h2><i class= "fa fa-thumbs-up ico"></i> REFERENCES</h2>
+				<h2><i class="fa fa-thumbs-up ico"></i> REFERENCES</h2>
 				{{#references}}
 				<blockquote>
 					<p>{{reference}}</p>
@@ -293,7 +291,7 @@
 				{{/references}}
 			</div>
 		</div>
-		{{/referencesBool}}
+		{{/references.length}}
 	</div> <!-- container -->
 
   	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>

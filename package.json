@@ -1,7 +1,7 @@
 {
   "name": "jsonresume-theme-bootstrap-icons",
-  "version": "0.1.0",
-  "description": "A JSON Resume theme built with bootstrap",
+  "version": "0.2.0",
+  "description": "A JSON Resume theme built with bootstrap and fontAwesome",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^2.4.1",
-    "mustache": "^0.8.2"
+    "mustache": "^0.8.2",
+    "resume-schema": "^0.0.15"
   },
   "repository": {
     "type": "git",

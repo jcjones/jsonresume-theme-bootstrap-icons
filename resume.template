@@ -138,7 +138,11 @@
 		<div class="row" id="contactHeader">
 			<div id="contact" class="col-xs-6 text-right">
 				<address>
-					<strong>{{basics.location.city}}</strong>, {{basics.location.region}} <i class="fa fa-map-marker"></i><br/>
+					<strong>{{basics.location.city}}</strong>
+					{{#basics.location.region}}
+						{{basics.location.region}}
+					{{/basics.location.region}} <i class="fa fa-map-marker"></i><br/>
+
 					{{#basics.phone}}
 						{{basics.phone}} <i class="fa fa-phone"></i><br/>
 					{{/basics.phone}}

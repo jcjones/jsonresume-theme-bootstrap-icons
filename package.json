@@ -1,6 +1,6 @@
 {
   "name": "jsonresume-theme-bootstrap-icons",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A JSON Resume theme built with bootstrap and fontAwesome",
   "main": "index.js",
   "scripts": {
